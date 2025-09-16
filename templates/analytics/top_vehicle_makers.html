@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Q2: Top 5 Vehicle Makers</h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Vehicle Maker</th>
+                <th>Total Orders</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row.vehicle_maker }}</td>
+                <td>{{ row.total_orders }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

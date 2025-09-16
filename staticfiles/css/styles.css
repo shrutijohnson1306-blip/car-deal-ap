@@ -1,0 +1,33 @@
+/* Gradient background */
+body {
+  background: linear-gradient(120deg, #3498db, #8e44ad);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Center card */
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.2);
+  width: 400px;
+}
+
+/* Buttons */
+.btn-primary {
+  background-color: #8e44ad;
+  border: none;
+}
+.btn-primary:hover {
+  background-color: #732d91;
+}
+
+/* Input fields */
+.form-control {
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  padding: 10px;
+}

@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="mb-4">Shippers</h1>
+    <table class="table table-striped table-bordered">
+        <thead>
+            <tr>
+                <th>Shipper ID</th>
+                <th>Shipper Name</th>
+                <th>Contact Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for shipper in shippers %}
+            <tr>
+                <td>{{ shipper.shipper_id }}</td>
+                <td>{{ shipper.shipper_name }}</td>
+                <td>{{ shipper.shipper_contact_details }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

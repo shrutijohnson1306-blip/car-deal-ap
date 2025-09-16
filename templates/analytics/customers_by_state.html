@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Q1: Customers by State</h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>State</th>
+                <th>Total Customers</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row.state }}</td>
+                <td>{{ row.total_customers }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

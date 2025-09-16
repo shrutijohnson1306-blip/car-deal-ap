@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Q9: Average Discount by Credit Card</h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Credit Card Type</th>
+                <th>Average Discount</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row.credit_card_type }}</td>
+                <td>{{ row.avg_discount }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

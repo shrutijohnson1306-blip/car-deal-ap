@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="container mt-4">
+    <h2>Q6: Orders by Quarter</h2>
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Quarter</th>
+                <th>Total Orders</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in data %}
+            <tr>
+                <td>{{ row.quarter_number }}</td>
+                <td>{{ row.total_orders }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
