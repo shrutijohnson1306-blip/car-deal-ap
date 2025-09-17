@@ -13,3 +13,4 @@ def shipper_list(request):
 class ShipperViewSet(viewsets.ModelViewSet):
     queryset = Shipper.objects.all()
     serializer_class = ShipperSerializer
+        

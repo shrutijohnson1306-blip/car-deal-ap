@@ -1,7 +1,8 @@
 {% extends "base.html" %}
+
 {% block content %}
-<div class="container mt-4">
-    <h2>Q10: Avg Shipping Time by Quarter</h2>
+<h2>Q10: Avg Shipping Time by Quarter</h2>
+<div class="table-responsive">
     <table class="table table-bordered table-striped">
         <thead>
             <tr>
@@ -13,10 +14,11 @@
             {% for row in data %}
             <tr>
                 <td>{{ row.quarter_number }}</td>
-                <td>{{ row.avg_shipping_days }}</td>
+                <td>{{ row.avg_shipping_days|floatformat:2 }}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
 </div>
 {% endblock %}
+

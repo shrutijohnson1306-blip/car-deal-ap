@@ -1,81 +1,122 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}CarDeal App{% endblock %}</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    {% load static %}
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        /* Gradient background */
+        body {
+            background: linear-gradient(to right, #4facfe, #8e44ad);
+            min-height: 100vh;
+        }
+
+        /* Navbar */
+        .navbar-custom {
+            background-color: #111 !important; /* black */
+        }
+
+        .navbar-custom .nav-link,
+        .navbar-custom .navbar-brand {
+            color: white !important;
+        }
+
+        /* Push content below fixed navbar */
+        .main-content {
+            margin-top: 90px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        /* White centered box */
+        .content-box {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+            width: 70%;
+        }
+    </style>
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
 
-            <!-- Left: Brand -->
-            <a class="navbar-brand" href="/">CarDeal</a>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-lg navbar-custom fixed-top">
+    <div class="container-fluid">
 
-            <!-- Center: Menu (only when logged in) -->
+        <!-- Left: Brand -->
+        <a class="navbar-brand" href="/">CarDeal</a>
+
+        <!-- Collapse button for mobile -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Right side: menu + user -->
+        <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
             {% if user.is_authenticated %}
-            <div class="mx-auto">
-                <ul class="navbar-nav d-flex flex-row gap-3">
-                    <li class="nav-item"><a class="nav-link" href="/customers/">Customers</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/products/">Products</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/orders/">Orders</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/shippers/">Shippers</a></li>
+            <ul class="navbar-nav d-flex gap-3">
+                <li class="nav-item"><a class="nav-link" href="/customers/">Customers</a></li>
+                <li class="nav-item"><a class="nav-link" href="/products/">Products</a></li>
+                <li class="nav-item"><a class="nav-link" href="/orders/">Orders</a></li>
+                <li class="nav-item"><a class="nav-link" href="/shippers/">Shippers</a></li>
 
-                    <!-- Analytics Dropdown (inside the UL now) -->
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="analyticsDropdown" role="button" 
-                           data-bs-toggle="dropdown" aria-expanded="false">
-                            Analytics
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="analyticsDropdown">
-                            <li><a class="dropdown-item" href="{% url 'customers_by_state' %}">Q1: Customers by State</a></li>
-    <li><a class="dropdown-item" href="{% url 'top_vehicle_makers' %}">Q2: Top 5 Vehicle Makers</a></li>
-    <li><a class="dropdown-item" href="{% url 'preferred_maker_by_state' %}">Q3: Preferred Maker per State</a></li>
-    <li><a class="dropdown-item" href="{% url 'avg_rating_by_quarter' %}">Q4: Average Ratings</a></li>
-    <li><a class="dropdown-item" href="{% url 'feedback_distribution' %}">Q5: Feedback Distribution</a></li>
-    <li><a class="dropdown-item" href="{% url 'orders_by_quarter' %}">Q6: Orders by Quarter</a></li>
-    <li><a class="dropdown-item" href="{% url 'revenue_change' %}">Q7: Revenue & % Change</a></li>
-    <li><a class="dropdown-item" href="{% url 'revenue_orders_trend' %}">Q8: Revenue & Orders Trend</a></li>
-    <li><a class="dropdown-item" href="{% url 'avg_discount_by_card' %}">Q9: Avg Discount by Card</a></li>
-    <li><a class="dropdown-item" href="{% url 'shipping_time' %}">Q10: Shipping Time per Quarter</a></li>
-                            <!-- More analytics queries will go here -->
-                        </ul>
-                    </li>
-                </ul>
-            </div>
-            {% endif %}
+                <!-- Analytics Dropdown -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="analyticsDropdown" role="button" 
+                       data-bs-toggle="dropdown" aria-expanded="false">
+                        Analytics
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="analyticsDropdown">
+                        <li><a class="dropdown-item" href="{% url 'customers_by_state' %}">Q1: Customers by State</a></li>
+                        <li><a class="dropdown-item" href="{% url 'top_vehicle_makers' %}">Q2: Top 5 Vehicle Makers</a></li>
+                        <li><a class="dropdown-item" href="{% url 'preferred_maker_by_state' %}">Q3: Preferred Maker per State</a></li>
+                        <li><a class="dropdown-item" href="{% url 'avg_rating_by_quarter' %}">Q4: Average Ratings</a></li>
+                        <li><a class="dropdown-item" href="{% url 'feedback_distribution' %}">Q5: Feedback Distribution</a></li>
+                        <li><a class="dropdown-item" href="{% url 'orders_by_quarter' %}">Q6: Orders by Quarter</a></li>
+                        <li><a class="dropdown-item" href="{% url 'revenue_change' %}">Q7: Revenue & % Change</a></li>
+                        <li><a class="dropdown-item" href="{% url 'revenue_orders_trend' %}">Q8: Revenue & Orders Trend</a></li>
+                        <li><a class="dropdown-item" href="{% url 'avg_discount_by_card' %}">Q9: Avg Discount by Card</a></li>
+                        <li><a class="dropdown-item" href="{% url 'shipping_time' %}">Q10: Shipping Time per Quarter</a></li>
+                    </ul>
+                </li>
 
-            <!-- Right: Login/Register or User/Logout -->
-            <ul class="navbar-nav ms-auto">
-                {% if user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link">Hi, {{ user.username }}</a></li>
-
-                    <!-- Logout must be POST -->
-                    <li class="nav-item">
-                        <form action="{% url 'logout' %}" method="post" style="display:inline;">
-                            {% csrf_token %}
-                            <button type="submit" class="btn btn-link nav-link" 
-                                    style="display:inline; border:none; background:none; padding:0; margin:0;">
-                                Logout
-                            </button>
-                        </form>
-                    </li>
-                {% else %}
-                    <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
-                {% endif %}
+                <!-- User -->
+                <li class="nav-item"><a class="nav-link">Hi, {{ user.username }}</a></li>
+                <li class="nav-item">
+                    <form action="{% url 'logout' %}" method="post" style="display:inline;">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-link nav-link" 
+                                style="display:inline; border:none; background:none; padding:0; margin:0;">
+                            Logout
+                        </button>
+                    </form>
+                </li>
             </ul>
-
+            {% else %}
+            <ul class="navbar-nav">
+                <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
+            </ul>
+            {% endif %}
         </div>
-    </nav>
+    </div>
+</nav>
 
-    <div class="container mt-4">
+<!-- Main content -->
+<div class="main-content">
+    <div class="content-box">
         {% block content %}
         {% endblock %}
     </div>
+</div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

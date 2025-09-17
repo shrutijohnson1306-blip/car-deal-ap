@@ -59,7 +59,6 @@ def avg_rating_by_quarter(request):
     """)
     return render(request, "analytics/avg_rating_by_quarter.html", {"results": data})
 
-
 def feedback_distribution(request):
     data = run_query("""
         SELECT customer_feedback, COUNT(*) * 100.0 / SUM(COUNT(*)) OVER() AS percentage
@@ -88,16 +87,18 @@ def revenue_change(request):
         SELECT quarter_number,
                net_revenue,
                ROUND(((net_revenue - LAG(net_revenue) OVER (ORDER BY quarter_number)) 
-                     / LAG(net_revenue) OVER (ORDER BY quarter_number) * 100),2) AS pct_change
-        FROM revenue_data;
+                      / NULLIF(LAG(net_revenue) OVER (ORDER BY quarter_number), 0) * 100), 2) 
+                      AS percent_change
+        FROM revenue_data
+        ORDER BY quarter_number;
     """)
     return render(request, "analytics/revenue_change.html", {"data": data})
 
 def revenue_orders_trend(request):
     data = run_query("""
         SELECT quarter_number,
-               COUNT(order_id) AS total_orders,
-               SUM(quantity * (vehicle_price - (vehicle_price * discount / 100))) AS net_revenue
+               SUM(quantity * (vehicle_price - (vehicle_price * discount / 100))) AS net_revenue,
+               COUNT(order_id) AS total_orders
         FROM order_t
         GROUP BY quarter_number
         ORDER BY quarter_number;
